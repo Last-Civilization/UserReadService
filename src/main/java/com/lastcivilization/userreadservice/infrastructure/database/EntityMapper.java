@@ -1,4 +1,4 @@
-package com.lastcivilization.userreadservice.infrastructure.application.database;
+package com.lastcivilization.userreadservice.infrastructure.database;
 
 import com.lastcivilization.userreadservice.domain.dto.UserDto;
 import org.mapstruct.Mapper;

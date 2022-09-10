@@ -1,4 +1,4 @@
-package com.lastcivilization.userreadservice.infrastructure.application.database;
+package com.lastcivilization.userreadservice.infrastructure.database;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
