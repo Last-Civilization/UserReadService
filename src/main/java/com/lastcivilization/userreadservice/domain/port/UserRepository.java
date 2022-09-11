@@ -9,4 +9,5 @@ public interface UserRepository {
     User findByLogin(String login);
     User findByKeycloakId(String keycloakId);
     List<User> findAll();
+    User save(User user);
 }

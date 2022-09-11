@@ -9,5 +9,6 @@ public interface EntityMapper {
 
     EntityMapper MAPPER = Mappers.getMapper(EntityMapper.class);
 
-    User toDto(UserEntity userEntity);
+    UserEntity toEntity(User user);
+    User toDomain(UserEntity userEntity);
 }

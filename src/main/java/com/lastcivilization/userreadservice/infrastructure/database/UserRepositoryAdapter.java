@@ -21,21 +21,28 @@ class UserRepositoryAdapter implements UserRepository {
     public User findByLogin(String login) {
         UserEntity userEntity = userJpaRepository.findByLogin(login)
                 .orElseThrow(() -> new UserNotFoundException(login));
-        return MAPPER.toDto(userEntity);
+        return MAPPER.toDomain(userEntity);
     }
 
     @Override
     public User findByKeycloakId(String keycloakId) {
         UserEntity userEntity = userJpaRepository.findByKeycloakId(keycloakId)
                 .orElseThrow(() -> new UserNotFoundException(keycloakId));
-        return MAPPER.toDto(userEntity);
+        return MAPPER.toDomain(userEntity);
     }
 
     @Override
     public List<User> findAll() {
         List<UserEntity> userEntities = userJpaRepository.findAll();
         return userEntities.stream()
-                .map(MAPPER::toDto)
+                .map(MAPPER::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public User save(User user) {
+        UserEntity userEntity = MAPPER.toEntity(user);
+        UserEntity savedUserEntity = userJpaRepository.save(userEntity);
+        return MAPPER.toDomain(savedUserEntity);
     }
 }
