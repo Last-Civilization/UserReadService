@@ -1,9 +1,12 @@
 package com.lastcivilization.userreadservice.domain.port;
 
-import com.lastcivilization.userreadservice.domain.dto.UserDto;
+import com.lastcivilization.userreadservice.domain.User;
+
+import java.util.List;
 
 public interface UserRepository {
 
-    UserDto findByLogin(String login);
-    UserDto findByKeycloakId(String keycloakId);
+    User findByLogin(String login);
+    User findByKeycloakId(String keycloakId);
+    List<User> findAll();
 }

@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.infrastructure.database;
 
-import com.lastcivilization.userreadservice.domain.dto.UserDto;
+import com.lastcivilization.userreadservice.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -9,6 +9,5 @@ public interface EntityMapper {
 
     EntityMapper MAPPER = Mappers.getMapper(EntityMapper.class);
 
-    UserEntity toEntity(UserDto userDto);
-    UserDto toDto(UserEntity userEntity);
+    User toDto(UserEntity userEntity);
 }
