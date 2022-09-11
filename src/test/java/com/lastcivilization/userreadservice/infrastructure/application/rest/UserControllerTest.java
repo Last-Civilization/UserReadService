@@ -18,18 +18,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerTest extends IntegrationBaseClass {
 
-    private User expectedUser;
 
     @Test
     void shouldGetUserByLoginWithSelfLink() throws Exception {
         //given
-        expectedUser = userCreator.createUser("test");
+        User expectedUser = userCreator.createUser("test");
         //when
         ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getLogin()));
         //then
         getUserByLoginResult.andExpect(status().isOk())
                 .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
                 .andExpect(jsonPath("$._links.self").exists());
+    }
+
+    @Test
+    void shouldReturnNotFoundWhileGettingUserByLogin() throws Exception {
+        //given
+        //when
+        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/notexistsuser"));
+        //then
+        getUserByLoginResult.andExpect(status().isNotFound());
     }
 
     @Test
