@@ -2,6 +2,8 @@ package com.lastcivilization.userreadservice.infrastructure.application.rest;
 
 import com.lastcivilization.userreadservice.domain.User;
 import com.lastcivilization.userreadservice.domain.port.UserService;
+import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.RestUserDto;
+import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.RestUserSearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.util.List;
 
+import static com.lastcivilization.userreadservice.infrastructure.application.rest.RestMapper.MAPPER;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -27,17 +30,17 @@ class UserController {
     private final UserService userService;
 
     @GetMapping("/{login}/search")
-    ResponseEntity<EntityModel<User>> getUserByLogin(@PathVariable String login){
+    ResponseEntity<EntityModel<RestUserSearchDto>> getUserByLogin(@PathVariable String login){
         User user = userService.findUserByLogin(login);
-        EntityModel<User> entityModel = EntityModel.of(user);
+        EntityModel<RestUserSearchDto> entityModel = EntityModel.of(MAPPER.toRestSearch(user));
         entityModel.add(linkTo(methodOn(UserController.class).getUserByLogin(login)).withSelfRel());
         return ResponseEntity.ok(entityModel);
     }
 
     @GetMapping("/{keycloakId}")
-    ResponseEntity<EntityModel<User>> getUserByKeycloakId(@PathVariable String keycloakId){
+    ResponseEntity<EntityModel<RestUserDto>> getUserByKeycloakId(@PathVariable String keycloakId){
         User user = userService.findUserByKeycloakId(keycloakId);
-        EntityModel<User> entityModel = EntityModel.of(user);
+        EntityModel<RestUserDto> entityModel = EntityModel.of(MAPPER.toRest(user));
         entityModel.add(linkTo(methodOn(UserController.class).getUserByKeycloakId(keycloakId)).withSelfRel());
         return ResponseEntity.ok(entityModel);
     }

@@ -29,12 +29,12 @@ class UserControllerTest extends IntegrationBaseClass {
         ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getLogin()+"/search"));
         //then
         getUserByLoginResult.andExpect(status().isOk())
-                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
+                .andExpect(jsonPath("$.id").doesNotExist())
                 .andExpect(jsonPath("$.keycloakId").value(expectedUser.getKeycloakId()))
-                .andExpect(jsonPath("$.email").value(expectedUser.getEmail()))
+                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
                 .andExpect(jsonPath("$.stats").value(expectedUser.getStats()))
                 .andExpect(jsonPath("$.equipment").value(expectedUser.getEquipment()))
-                .andExpect(jsonPath("$.money").value(expectedUser.getMoney()))
+                .andExpect(jsonPath("$.money").doesNotExist())
                 .andExpect(jsonPath("$._links.self").exists());
     }
 
@@ -46,8 +46,9 @@ class UserControllerTest extends IntegrationBaseClass {
         ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getKeycloakId()));
         //then
         getUserByLoginResult.andExpect(status().isOk())
-                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
+                .andExpect(jsonPath("$.id").doesNotExist())
                 .andExpect(jsonPath("$.keycloakId").value(expectedUser.getKeycloakId()))
+                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
                 .andExpect(jsonPath("$.email").value(expectedUser.getEmail()))
                 .andExpect(jsonPath("$.stats").value(expectedUser.getStats()))
                 .andExpect(jsonPath("$.equipment").value(expectedUser.getEquipment()))
