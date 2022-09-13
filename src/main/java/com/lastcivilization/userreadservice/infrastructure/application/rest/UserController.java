@@ -26,7 +26,7 @@ class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/{login}")
+    @GetMapping("/{login}/search")
     ResponseEntity<EntityModel<User>> getUserByLogin(@PathVariable String login){
         User user = userService.findUserByLogin(login);
         EntityModel<User> entityModel = EntityModel.of(user);
@@ -34,11 +34,11 @@ class UserController {
         return ResponseEntity.ok(entityModel);
     }
 
-    @GetMapping("/current")
-    ResponseEntity<EntityModel<User>> getUserByKeycloakId(Principal principal){
-        User user = userService.findUserByKeycloakId(principal.getName());
+    @GetMapping("/{keycloakId}")
+    ResponseEntity<EntityModel<User>> getUserByKeycloakId(@PathVariable String keycloakId){
+        User user = userService.findUserByKeycloakId(keycloakId);
         EntityModel<User> entityModel = EntityModel.of(user);
-        entityModel.add(linkTo(methodOn(UserController.class).getUserByKeycloakId(principal)).withSelfRel());
+        entityModel.add(linkTo(methodOn(UserController.class).getUserByKeycloakId(keycloakId)).withSelfRel());
         return ResponseEntity.ok(entityModel);
     }
 

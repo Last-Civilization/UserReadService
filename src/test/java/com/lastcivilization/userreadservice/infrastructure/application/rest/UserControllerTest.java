@@ -26,15 +26,32 @@ class UserControllerTest extends IntegrationBaseClass {
         //given
         User expectedUser = userCreator.createUser("shouldGetUserByLogin");
         //when
-        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getLogin()));
+        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getLogin()+"/search"));
         //then
         getUserByLoginResult.andExpect(status().isOk())
                 .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
-                .andExpect(jsonPath("$.keycloakId").exists())
-                .andExpect(jsonPath("$.email").exists())
-                .andExpect(jsonPath("$.stats").exists())
-                .andExpect(jsonPath("$.equipment").exists())
-                .andExpect(jsonPath("$.money").value(0))
+                .andExpect(jsonPath("$.keycloakId").value(expectedUser.getKeycloakId()))
+                .andExpect(jsonPath("$.email").value(expectedUser.getEmail()))
+                .andExpect(jsonPath("$.stats").value(expectedUser.getStats()))
+                .andExpect(jsonPath("$.equipment").value(expectedUser.getEquipment()))
+                .andExpect(jsonPath("$.money").value(expectedUser.getMoney()))
+                .andExpect(jsonPath("$._links.self").exists());
+    }
+
+    @Test
+    void shouldGetUserByKeycloakIdWithSelfLink() throws Exception {
+        //given
+        User expectedUser = userCreator.createUser("shouldGetUserByKeycloakId");
+        //when
+        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getKeycloakId()));
+        //then
+        getUserByLoginResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
+                .andExpect(jsonPath("$.keycloakId").value(expectedUser.getKeycloakId()))
+                .andExpect(jsonPath("$.email").value(expectedUser.getEmail()))
+                .andExpect(jsonPath("$.stats").value(expectedUser.getStats()))
+                .andExpect(jsonPath("$.equipment").value(expectedUser.getEquipment()))
+                .andExpect(jsonPath("$.money").value(expectedUser.getMoney()))
                 .andExpect(jsonPath("$._links.self").exists());
     }
 
@@ -42,27 +59,18 @@ class UserControllerTest extends IntegrationBaseClass {
     void shouldReturnNotFoundWhileGettingUserByLogin() throws Exception {
         //given
         //when
-        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/notexistsuser"));
+        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/notexistsuser/search"));
         //then
         getUserByLoginResult.andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser(username = GET_USER_BY_KEYCLOAK_ID_USERNAME)
-    void shouldGetUserByKeycloakIdWithSelfLink() throws Exception {
+    void shouldReturnNotFoundWhileGettingUserByKeycloakId() throws Exception {
         //given
-        User expectedUser = userCreator.createUser(GET_USER_BY_KEYCLOAK_ID_USERNAME);
         //when
-        ResultActions getUserByKeycloakIdResult = mockMvc.perform(get("/users/current"));
+        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/notexistsuser"));
         //then
-        getUserByKeycloakIdResult.andExpect(status().isOk())
-                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
-                .andExpect(jsonPath("$.keycloakId").exists())
-                .andExpect(jsonPath("$.email").exists())
-                .andExpect(jsonPath("$.stats").exists())
-                .andExpect(jsonPath("$.equipment").exists())
-                .andExpect(jsonPath("$.money").value(0))
-                .andExpect(jsonPath("$._links.self").exists());
+        getUserByLoginResult.andExpect(status().isNotFound());
     }
 
     @Test
