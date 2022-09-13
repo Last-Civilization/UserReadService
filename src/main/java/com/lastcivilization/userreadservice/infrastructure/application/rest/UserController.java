@@ -1,26 +1,15 @@
 package com.lastcivilization.userreadservice.infrastructure.application.rest;
 
 import com.lastcivilization.userreadservice.domain.User;
+import com.lastcivilization.userreadservice.domain.dto.UserDto;
+import com.lastcivilization.userreadservice.domain.dto.UserSearchDto;
 import com.lastcivilization.userreadservice.domain.port.UserService;
-import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.RestUserDto;
-import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.RestUserSearchDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
-import java.util.List;
-
-import static com.lastcivilization.userreadservice.infrastructure.application.rest.RestMapper.MAPPER;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,42 +19,15 @@ class UserController {
     private final UserService userService;
 
     @GetMapping("/{login}/search")
-    ResponseEntity<EntityModel<RestUserSearchDto>> getUserByLogin(@PathVariable String login){
-        User user = userService.findUserByLogin(login);
-        EntityModel<RestUserSearchDto> entityModel = createEntityModel(login, user);
-        return ResponseEntity.ok(entityModel);
+    ResponseEntity<UserSearchDto> getUserByLogin(@PathVariable String login){
+        UserSearchDto userDto = userService.findUserByLogin(login);
+        return ResponseEntity.ok(userDto);
     }
 
-    private EntityModel<RestUserSearchDto> createEntityModel(String login, User user) {
-        EntityModel<RestUserSearchDto> entityModel = EntityModel.of(MAPPER.toRestSearch(user));
-        entityModel.add(linkTo(methodOn(UserController.class).getUserByLogin(login)).withSelfRel());
-        return entityModel;
-    }
 
     @GetMapping("/{keycloakId}")
-    ResponseEntity<EntityModel<RestUserDto>> getUserByKeycloakId(@PathVariable String keycloakId){
-        User user = userService.findUserByKeycloakId(keycloakId);
-        EntityModel<RestUserDto> entityModel = createEntityModelForSearch(keycloakId, user);
-        return ResponseEntity.ok(entityModel);
+    ResponseEntity<UserDto> getUserByKeycloakId(@PathVariable String keycloakId){
+        UserDto userDto = userService.findUserByKeycloakId(keycloakId);
+        return ResponseEntity.ok(userDto);
     }
-
-    private EntityModel<RestUserDto> createEntityModelForSearch(String keycloakId, User user) {
-        EntityModel<RestUserDto> entityModel = EntityModel.of(MAPPER.toRest(user));
-        entityModel.add(linkTo(methodOn(UserController.class).getUserByKeycloakId(keycloakId)).withSelfRel());
-        return entityModel;
-    }
-
-    @GetMapping
-    ResponseEntity<CollectionModel<User>> getAllUsers(){
-        List<User> users = userService.findAll();
-        CollectionModel<User> collectionModel = createCollectionModel(users);
-        return ResponseEntity.ok(collectionModel);
-    }
-
-    private CollectionModel<User> createCollectionModel(List<User> users) {
-        CollectionModel<User> collectionModel = CollectionModel.of(users);
-        collectionModel.add(linkTo(methodOn(UserController.class).getAllUsers()).withSelfRel());
-        return collectionModel;
-    }
-
 }
