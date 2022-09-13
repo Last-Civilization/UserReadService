@@ -32,25 +32,40 @@ class UserController {
     @GetMapping("/{login}/search")
     ResponseEntity<EntityModel<RestUserSearchDto>> getUserByLogin(@PathVariable String login){
         User user = userService.findUserByLogin(login);
+        EntityModel<RestUserSearchDto> entityModel = createEntityModel(login, user);
+        return ResponseEntity.ok(entityModel);
+    }
+
+    private EntityModel<RestUserSearchDto> createEntityModel(String login, User user) {
         EntityModel<RestUserSearchDto> entityModel = EntityModel.of(MAPPER.toRestSearch(user));
         entityModel.add(linkTo(methodOn(UserController.class).getUserByLogin(login)).withSelfRel());
-        return ResponseEntity.ok(entityModel);
+        return entityModel;
     }
 
     @GetMapping("/{keycloakId}")
     ResponseEntity<EntityModel<RestUserDto>> getUserByKeycloakId(@PathVariable String keycloakId){
         User user = userService.findUserByKeycloakId(keycloakId);
+        EntityModel<RestUserDto> entityModel = createEntityModelForSearch(keycloakId, user);
+        return ResponseEntity.ok(entityModel);
+    }
+
+    private EntityModel<RestUserDto> createEntityModelForSearch(String keycloakId, User user) {
         EntityModel<RestUserDto> entityModel = EntityModel.of(MAPPER.toRest(user));
         entityModel.add(linkTo(methodOn(UserController.class).getUserByKeycloakId(keycloakId)).withSelfRel());
-        return ResponseEntity.ok(entityModel);
+        return entityModel;
     }
 
     @GetMapping
     ResponseEntity<CollectionModel<User>> getAllUsers(){
         List<User> users = userService.findAll();
+        CollectionModel<User> collectionModel = createCollectionModel(users);
+        return ResponseEntity.ok(collectionModel);
+    }
+
+    private static CollectionModel<User> createCollectionModel(List<User> users) {
         CollectionModel<User> collectionModel = CollectionModel.of(users);
         collectionModel.add(linkTo(methodOn(UserController.class).getAllUsers()).withSelfRel());
-        return ResponseEntity.ok(collectionModel);
+        return collectionModel;
     }
 
 }
