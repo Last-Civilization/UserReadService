@@ -39,7 +39,7 @@ class UserController {
         User user = userService.findUserByKeycloakId(principal.getName());
         EntityModel<User> entityModel = EntityModel.of(user);
         entityModel.add(linkTo(methodOn(UserController.class).getUserByKeycloakId(principal)).withSelfRel());
-        return ResponseEntity.ok(EntityModel.of(user));
+        return ResponseEntity.ok(entityModel);
     }
 
     @GetMapping
