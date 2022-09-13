@@ -62,7 +62,7 @@ class UserController {
         return ResponseEntity.ok(collectionModel);
     }
 
-    private static CollectionModel<User> createCollectionModel(List<User> users) {
+    private CollectionModel<User> createCollectionModel(List<User> users) {
         CollectionModel<User> collectionModel = CollectionModel.of(users);
         collectionModel.add(linkTo(methodOn(UserController.class).getAllUsers()).withSelfRel());
         return collectionModel;
