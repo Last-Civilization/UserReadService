@@ -9,5 +9,5 @@ public record UserDto (
         String email,
         Long stats,
         Long equipment,
-        int money
+        Long money
 ) {}
