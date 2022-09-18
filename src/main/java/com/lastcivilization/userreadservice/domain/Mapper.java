@@ -12,7 +12,7 @@ class Mapper {
                 user.getEmail(),
                 user.getStats(),
                 user.getEquipment(),
-                user.getMoney()
+                user.getAccount()
         );
     }
 

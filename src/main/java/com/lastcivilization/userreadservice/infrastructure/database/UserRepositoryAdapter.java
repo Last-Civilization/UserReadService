@@ -5,13 +5,14 @@ import com.lastcivilization.userreadservice.domain.exception.UserNotFoundExcepti
 import com.lastcivilization.userreadservice.domain.port.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.lastcivilization.userreadservice.infrastructure.database.EntityMapper.MAPPER;
 
-@Component
+@Service
 @RequiredArgsConstructor
 class UserRepositoryAdapter implements UserRepository {
 
