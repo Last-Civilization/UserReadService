@@ -36,19 +36,10 @@ public class IntegrationBaseClass {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    @Autowired
     protected MockMvc mockMvc;
     @Autowired
     protected UserCreator userCreator;
-
-    @BeforeEach
-    void init(){
-        if (mockMvc == null){
-            mockMvc = MockMvcBuilders
-                    .webAppContextSetup(webApplicationContext)
-                    .apply(springSecurity())
-                    .build();
-        }
-    }
 
     @DynamicPropertySource
     private static void init(DynamicPropertyRegistry registry){
