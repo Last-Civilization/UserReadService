@@ -34,9 +34,6 @@ public class IntegrationBaseClass {
             .withDatabaseName("test");
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Autowired
     protected MockMvc mockMvc;
     @Autowired
     protected UserCreator userCreator;
