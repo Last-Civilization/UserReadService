@@ -4,4 +4,8 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-record ErrorEntity (String message, LocalDateTime dateTime) { }
+record ErrorEntity (String message, LocalDateTime dateTime) {
+    ErrorEntity(String message){
+        this(message, LocalDateTime.now());
+    }
+}

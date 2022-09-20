@@ -4,6 +4,7 @@ import com.lastcivilization.userreadservice.domain.exception.UserNotFoundExcepti
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
@@ -12,10 +13,9 @@ import java.time.LocalDateTime;
 class RestExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    ResponseEntity<ErrorEntity> handleUserNotFoundException(UserNotFoundException exception){
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new ErrorEntity(exception.getMessage(), LocalDateTime.now()));
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ErrorEntity handleUserNotFoundException(UserNotFoundException exception){
+        return new ErrorEntity(exception.getMessage());
     }
 
 }
