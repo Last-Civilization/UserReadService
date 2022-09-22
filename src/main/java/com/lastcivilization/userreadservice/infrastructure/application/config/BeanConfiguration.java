@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories("com.lastcivilization.userreadservice")
-@EntityScan("com.lastcivilization.userreadservice")
+@EnableJpaRepositories("com.lastcivilization.userreadservice.infrastructure.database")
+@EntityScan("com.lastcivilization.userreadservice.infrastructure.database")
 @ComponentScan("com.lastcivilization.userreadservice")
 class BeanConfiguration {
 
