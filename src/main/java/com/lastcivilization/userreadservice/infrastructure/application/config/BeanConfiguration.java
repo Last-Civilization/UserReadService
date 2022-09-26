@@ -1,8 +1,7 @@
 package com.lastcivilization.userreadservice.infrastructure.application.config;
 
-import com.lastcivilization.userreadservice.domain.UserServiceImp;
+import com.lastcivilization.userreadservice.domain.UserService;
 import com.lastcivilization.userreadservice.domain.port.UserRepository;
-import com.lastcivilization.userreadservice.domain.port.UserService;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,6 +16,6 @@ class BeanConfiguration {
 
     @Bean
     UserService userService(UserRepository userRepository){
-        return new UserServiceImp(userRepository);
+        return new UserService(userRepository);
     }
 }

@@ -1,7 +1,7 @@
 package com.lastcivilization.userreadservice.infrastructure.application.rest;
 
+import com.lastcivilization.userreadservice.domain.UserService;
 import com.lastcivilization.userreadservice.domain.view.UserModel;
-import com.lastcivilization.userreadservice.domain.port.UserService;
 import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserDto;
 import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserSearchDto;
 import lombok.RequiredArgsConstructor;
