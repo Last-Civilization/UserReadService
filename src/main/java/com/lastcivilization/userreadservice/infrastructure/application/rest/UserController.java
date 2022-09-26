@@ -1,10 +1,9 @@
 package com.lastcivilization.userreadservice.infrastructure.application.rest;
 
-import com.lastcivilization.userreadservice.domain.User;
-import com.lastcivilization.userreadservice.domain.vo.UserVO;
+import com.lastcivilization.userreadservice.domain.UserModel;
+import com.lastcivilization.userreadservice.domain.port.UserService;
 import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserDto;
 import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserSearchDto;
-import com.lastcivilization.userreadservice.domain.port.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ class UserController {
 
     @GetMapping("/{login}/search")
     ResponseEntity<UserSearchDto> getUserByLogin(@PathVariable String login){
-        UserVO user = userService.findUserByLogin(login);
+        UserModel user = userService.findUserByLogin(login);
         UserSearchDto userDto = MAPPER.toSearchDto(user);
         return ResponseEntity.ok(userDto);
     }
@@ -31,7 +30,7 @@ class UserController {
 
     @GetMapping("/{keycloakId}")
     ResponseEntity<UserDto> getUserByKeycloakId(@PathVariable String keycloakId){
-        UserVO user = userService.findUserByKeycloakId(keycloakId);
+        UserModel user = userService.findUserByKeycloakId(keycloakId);
         UserDto userDto = MAPPER.toDto(user);
         return ResponseEntity.ok(userDto);
     }

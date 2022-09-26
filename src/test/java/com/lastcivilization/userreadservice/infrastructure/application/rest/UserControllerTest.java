@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.infrastructure.application.rest;
 
-import com.lastcivilization.userreadservice.domain.User;
+import com.lastcivilization.userreadservice.domain.UserModel;
 import com.lastcivilization.userreadservice.utils.IntegrationBaseClass;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.ResultActions;
@@ -11,37 +11,34 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerTest extends IntegrationBaseClass {
 
-
-    private static final String GET_USER_BY_KEYCLOAK_ID_USERNAME = "shouldGetUserByKeycloakId";
-
     @Test
     void shouldGetUserByLogin() throws Exception {
         //given
-        User expectedUser = userCreator.createUser("shouldGetUserByLogin");
+        UserModel expectedUser = userCreator.createUser("shouldGetUserByLogin");
         //when
-        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getLogin()+"/search"));
+        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.login()+"/search"));
         //then
         getUserByLoginResult.andExpect(status().isOk())
                 .andExpect(jsonPath("$.keycloakId").exists())
-                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
-                .andExpect(jsonPath("$.stats").value(expectedUser.getStats()))
-                .andExpect(jsonPath("$.equipment").value(expectedUser.getEquipment()));
+                .andExpect(jsonPath("$.login").value(expectedUser.login()))
+                .andExpect(jsonPath("$.stats").value(expectedUser.stats()))
+                .andExpect(jsonPath("$.equipment").value(expectedUser.equipment()));
     }
 
     @Test
     void shouldGetUserByKeycloakIdWith() throws Exception {
         //given
-        User expectedUser = userCreator.createUser("shouldGetUserByKeycloakId");
+        UserModel expectedUser = userCreator.createUser("shouldGetUserByKeycloakId");
         //when
-        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.getKeycloakId()));
+        ResultActions getUserByLoginResult = mockMvc.perform(get("/users/"+expectedUser.keycloakId()));
         //then
         getUserByLoginResult.andExpect(status().isOk())
-                .andExpect(jsonPath("$.keycloakId").value(expectedUser.getKeycloakId()))
-                .andExpect(jsonPath("$.login").value(expectedUser.getLogin()))
-                .andExpect(jsonPath("$.email").value(expectedUser.getEmail()))
-                .andExpect(jsonPath("$.stats").value(expectedUser.getStats()))
-                .andExpect(jsonPath("$.equipment").value(expectedUser.getEquipment()))
-                .andExpect(jsonPath("$.account").value(expectedUser.getAccount()));
+                .andExpect(jsonPath("$.keycloakId").value(expectedUser.keycloakId()))
+                .andExpect(jsonPath("$.login").value(expectedUser.login()))
+                .andExpect(jsonPath("$.email").value(expectedUser.email()))
+                .andExpect(jsonPath("$.stats").value(expectedUser.stats()))
+                .andExpect(jsonPath("$.equipment").value(expectedUser.equipment()))
+                .andExpect(jsonPath("$.account").value(expectedUser.account()));
     }
 
     @Test

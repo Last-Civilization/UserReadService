@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.domain;
 
-public class User {
+class User {
 
     private Long id;
     private String keycloakId;

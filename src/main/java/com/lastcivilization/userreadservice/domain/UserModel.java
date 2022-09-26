@@ -1,6 +1,6 @@
-package com.lastcivilization.userreadservice.domain.vo;
+package com.lastcivilization.userreadservice.domain;
 
-public record UserVO(
+public record UserModel(
         Long id,
         String keycloakId,
         String login,
