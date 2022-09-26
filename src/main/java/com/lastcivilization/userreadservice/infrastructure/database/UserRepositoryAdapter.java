@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.infrastructure.database;
 
-import com.lastcivilization.userreadservice.domain.UserModel;
+import com.lastcivilization.userreadservice.domain.view.UserModel;
 import com.lastcivilization.userreadservice.domain.exception.UserNotFoundException;
 import com.lastcivilization.userreadservice.domain.port.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.infrastructure.application.rest;
 
-import com.lastcivilization.userreadservice.domain.UserModel;
+import com.lastcivilization.userreadservice.domain.view.UserModel;
 import com.lastcivilization.userreadservice.utils.IntegrationBaseClass;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.ResultActions;

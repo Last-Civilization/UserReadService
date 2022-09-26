@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.infrastructure.database;
 
-import com.lastcivilization.userreadservice.domain.UserModel;
+import com.lastcivilization.userreadservice.domain.view.UserModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

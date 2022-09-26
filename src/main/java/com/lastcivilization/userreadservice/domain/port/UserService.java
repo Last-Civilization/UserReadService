@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.domain.port;
 
-import com.lastcivilization.userreadservice.domain.UserModel;
+import com.lastcivilization.userreadservice.domain.view.UserModel;
 
 public interface UserService {
 

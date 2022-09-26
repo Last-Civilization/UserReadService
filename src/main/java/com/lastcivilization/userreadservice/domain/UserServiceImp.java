@@ -2,6 +2,7 @@ package com.lastcivilization.userreadservice.domain;
 
 import com.lastcivilization.userreadservice.domain.port.UserRepository;
 import com.lastcivilization.userreadservice.domain.port.UserService;
+import com.lastcivilization.userreadservice.domain.view.UserModel;
 
 public class UserServiceImp implements UserService {
 

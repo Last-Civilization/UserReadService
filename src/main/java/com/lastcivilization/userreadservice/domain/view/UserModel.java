@@ -1,4 +1,4 @@
-package com.lastcivilization.userreadservice.domain;
+package com.lastcivilization.userreadservice.domain.view;
 
 public record UserModel(
         Long id,

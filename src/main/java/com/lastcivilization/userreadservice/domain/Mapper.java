@@ -1,5 +1,7 @@
 package com.lastcivilization.userreadservice.domain;
 
+import com.lastcivilization.userreadservice.domain.view.UserModel;
+
 class Mapper {
 
     static UserModel toModel(User user){

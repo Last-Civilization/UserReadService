@@ -1,6 +1,6 @@
 package com.lastcivilization.userreadservice.utils;
 
-import com.lastcivilization.userreadservice.domain.UserModel;
+import com.lastcivilization.userreadservice.domain.view.UserModel;
 import com.lastcivilization.userreadservice.domain.port.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
