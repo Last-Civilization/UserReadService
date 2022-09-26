@@ -21,17 +21,15 @@ class UserController {
     private final UserService userService;
 
     @GetMapping("/{login}/search")
-    ResponseEntity<UserSearchDto> getUserByLogin(@PathVariable String login){
+    UserSearchDto getUserByLogin(@PathVariable String login){
         UserModel user = userService.findUserByLogin(login);
-        UserSearchDto userDto = MAPPER.toSearchDto(user);
-        return ResponseEntity.ok(userDto);
+        return MAPPER.toSearchDto(user);
     }
 
 
     @GetMapping("/{keycloakId}")
-    ResponseEntity<UserDto> getUserByKeycloakId(@PathVariable String keycloakId){
+    UserDto getUserByKeycloakId(@PathVariable String keycloakId){
         UserModel user = userService.findUserByKeycloakId(keycloakId);
-        UserDto userDto = MAPPER.toDto(user);
-        return ResponseEntity.ok(userDto);
+        return MAPPER.toDto(user);
     }
 }
