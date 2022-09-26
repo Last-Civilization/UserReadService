@@ -1,7 +1,7 @@
 package com.lastcivilization.userreadservice.domain;
 
-import com.lastcivilization.userreadservice.domain.dto.UserDto;
-import com.lastcivilization.userreadservice.domain.dto.UserSearchDto;
+import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserDto;
+import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserSearchDto;
 
 class Mapper {
 
