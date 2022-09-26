@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.lastcivilization.userreadservice.infrastructure.database.EntityMapper.MAPPER;
@@ -18,25 +19,17 @@ class UserRepositoryAdapter implements UserRepository {
     private final UserJpaRepository userJpaRepository;
 
     @Override
-    public UserModel findByLogin(String login) {
-        UserEntity userEntity = userJpaRepository.findByLogin(login)
-                .orElseThrow(() -> new UserNotFoundException(login));
-        return MAPPER.toDomain(userEntity);
+    public Optional<UserModel> findByLogin(String login) {
+        Optional<UserEntity> userEntity = userJpaRepository.findByLogin(login);
+        return userEntity
+                .map(MAPPER::toDomain);
     }
 
     @Override
-    public UserModel findByKeycloakId(String keycloakId) {
-        UserEntity userEntity = userJpaRepository.findByKeycloakId(keycloakId)
-                .orElseThrow(() -> new UserNotFoundException(keycloakId));
-        return MAPPER.toDomain(userEntity);
-    }
-
-    @Override
-    public List<UserModel> findAll() {
-        List<UserEntity> userEntities = userJpaRepository.findAll();
-        return userEntities.stream()
-                .map(MAPPER::toDomain)
-                .collect(Collectors.toList());
+    public Optional<UserModel> findByKeycloakId(String keycloakId) {
+        Optional<UserEntity> userEntity = userJpaRepository.findByKeycloakId(keycloakId);
+        return userEntity
+                .map(MAPPER::toDomain);
     }
 
     @Override

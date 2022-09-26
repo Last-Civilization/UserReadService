@@ -3,11 +3,11 @@ package com.lastcivilization.userreadservice.domain.port;
 import com.lastcivilization.userreadservice.domain.view.UserModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository {
 
-    UserModel findByLogin(String login);
-    UserModel findByKeycloakId(String keycloakId);
-    List<UserModel> findAll();
+    Optional<UserModel> findByLogin(String login);
+    Optional<UserModel> findByKeycloakId(String keycloakId);
     UserModel save(UserModel user);
 }
