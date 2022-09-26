@@ -1,5 +1,6 @@
 package com.lastcivilization.userreadservice.domain;
 
+import com.lastcivilization.userreadservice.domain.vo.UserVO;
 import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserDto;
 import com.lastcivilization.userreadservice.infrastructure.application.rest.dto.UserSearchDto;
 import com.lastcivilization.userreadservice.domain.port.UserRepository;
@@ -14,12 +15,14 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findUserByLogin(String login) {
-        return userRepository.findByLogin(login);
+    public UserVO findUserByLogin(String login) {
+        User user = userRepository.findByLogin(login);
+        return Mapper.toVo(user);
     }
 
     @Override
-    public User findUserByKeycloakId(String keycloakId) {
-        return userRepository.findByKeycloakId(keycloakId);
+    public UserVO findUserByKeycloakId(String keycloakId) {
+        User user = userRepository.findByKeycloakId(keycloakId);
+        return Mapper.toVo(user);
     }
 }
