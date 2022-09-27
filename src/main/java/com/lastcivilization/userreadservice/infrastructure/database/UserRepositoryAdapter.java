@@ -28,7 +28,6 @@ class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
-    @Cacheable("keycloak")
     public Optional<UserModel> findByKeycloakId(String keycloakId) {
         Optional<UserEntity> userEntity = userJpaRepository.findByKeycloakId(keycloakId);
         return userEntity

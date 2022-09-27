@@ -26,7 +26,7 @@ class UserControllerTest extends IntegrationBaseClass {
     }
 
     @Test
-    void shouldGetUserByKeycloakIdWith() throws Exception {
+    void shouldGetUserByKeycloakId() throws Exception {
         //given
         UserModel expectedUser = userCreator.createUser("shouldGetUserByKeycloakId");
         //when
@@ -37,7 +37,8 @@ class UserControllerTest extends IntegrationBaseClass {
                 .andExpect(jsonPath("$.login").value(expectedUser.login()))
                 .andExpect(jsonPath("$.email").value(expectedUser.email()))
                 .andExpect(jsonPath("$.stats").value(expectedUser.stats()))
-                .andExpect(jsonPath("$.equipment").value(expectedUser.equipment()));
+                .andExpect(jsonPath("$.equipment").value(expectedUser.equipment()))
+                .andExpect(jsonPath("$.account").value(expectedUser.account()));
     }
 
     @Test

@@ -27,7 +27,7 @@ class CacheConfiguration implements CachingConfigurer {
                                 .maximumSize(1000)
                                 .build()
                                 .asMap(),
-                        false
+                        true
                 );
             }
         };
