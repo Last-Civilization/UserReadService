@@ -37,8 +37,7 @@ class UserControllerTest extends IntegrationBaseClass {
                 .andExpect(jsonPath("$.login").value(expectedUser.login()))
                 .andExpect(jsonPath("$.email").value(expectedUser.email()))
                 .andExpect(jsonPath("$.stats").value(expectedUser.stats()))
-                .andExpect(jsonPath("$.equipment").value(expectedUser.equipment()))
-                .andExpect(jsonPath("$.account").value(expectedUser.account()));
+                .andExpect(jsonPath("$.equipment").value(expectedUser.equipment()));
     }
 
     @Test

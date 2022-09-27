@@ -4,6 +4,7 @@ import com.lastcivilization.userreadservice.domain.view.UserModel;
 import com.lastcivilization.userreadservice.domain.exception.UserNotFoundException;
 import com.lastcivilization.userreadservice.domain.port.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ class UserRepositoryAdapter implements UserRepository {
     private final UserJpaRepository userJpaRepository;
 
     @Override
+    @Cacheable("login")
     public Optional<UserModel> findByLogin(String login) {
         Optional<UserEntity> userEntity = userJpaRepository.findByLogin(login);
         return userEntity
@@ -26,6 +28,7 @@ class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
+    @Cacheable("keycloak")
     public Optional<UserModel> findByKeycloakId(String keycloakId) {
         Optional<UserEntity> userEntity = userJpaRepository.findByKeycloakId(keycloakId);
         return userEntity
