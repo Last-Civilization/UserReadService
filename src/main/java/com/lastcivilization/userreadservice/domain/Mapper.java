@@ -2,7 +2,11 @@ package com.lastcivilization.userreadservice.domain;
 
 import com.lastcivilization.userreadservice.domain.view.UserModel;
 
-class Mapper {
+final class Mapper {
+
+    private Mapper(){
+        throw new RuntimeException("You can not create instance of this class!");
+    }
 
     static UserModel toModel(User user){
         return new UserModel(
